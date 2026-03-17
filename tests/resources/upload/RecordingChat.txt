@@ -1,0 +1,11 @@
+00:17:17	Diem Chauu:	e ko thấy đc tab Accesibility
+00:17:51	Diem Chauu:	ah e thấy r ạ
+00:17:54	Diem Chauu:	cảm ơn anh
+00:18:30	Moon Moon:	Anh share lain man hinge aj
+00:18:42	Moon Moon:	Ko thấy màn hình anh ơi
+02:12:23	Ha Do (TVN):	//option[.=‘Option 1’]
+02:19:23	Ha Do (TVN):	https://output.jsbin.com/osebed/2
+02:23:32	Ha Do (TVN):	await expect(page
+        .locator('#fruits > option:checked'))
+        .toHaveText(['Banana','Apple']); // expect
+02:34:12	Hien Tran:	test('Dropdown', async ({ page }) => {    await page.goto('https://the-internet.herokuapp.com/dropdown');        await page.locator(`#dropdown`).selectOption({ label: 'Option 1' });    // await expect(page.locator(`#dropdown`)).toHaveValue('1');    await expect(page.locator(`#dropdown > option:checked`)).toHaveText('Option 1');});test('Dropdown with multiple options', async ({ page }) => {    await page.goto('https://output.jsbin.com/osebed/2');    await page.locator('#fruits').selectOption(['apple', 'banana']);    await expect(page.locator('#fruits > option:checked')).toHaveText(['Banana', 'Apple' ]);    await page.locator('#fruits').selectOption([]);    await expect(page.locator('#fruits > option:checked')).toHaveText([]);});
