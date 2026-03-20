@@ -1,16 +1,12 @@
-import { test, expect } from '@playwright/test';
+import {test, expect} from '@playwright/test';
 
-test('verify dropdown functionality', async ({ page }) => {
-  await page.goto('https://the-internet.herokuapp.com/dropdown');
+test ('able to select multiple options', async ({page}) => {
 
-  await page.locator('#dropdown').selectOption('Option 1');
-  await expect(page.locator('#dropdown')).toHaveValue('1');
-  await expect(page.locator('option:checked')).toHaveText('Option 1');
+  await page.goto('https://output.jsbin.com/osebed/2');
+  await page.locator('#fruits').selectOption(['banana', 'apple']);
+  await expect (page.locator('#fruits')).toHaveValues(['banana', 'apple']);
+  await expect (page.locator('#fruits > option:checked')).toHaveText (['Banana', 'Apple']);
+  await expect (page.locator('#fruits > option:not(:checked)')).toHaveText (['Orange', 'Grape']);
+
+  
 });
-
-// test('check multiple options', async ({ page }) => {
-//   await page.goto('https://output.jsbin.com/osebed/2');
-
-//   await page.locator('#fruits').selectOption(['Banana', 'Apple']);
-//   await expect(page.locator('option:checked')).toHaveText('Banana, Apple');
-// });
