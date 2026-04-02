@@ -1,26 +1,25 @@
-import { test, expect } from '@playwright/test';
-import { url } from 'node:inspector';
+import { test, expect } from './fixrtures/the-internet.fixture';
 
-test('verify status code links', async ({ page }) => {
-  await page.goto('https://the-internet.herokuapp.com/status_codes');
+test('verify status code links', async ({ hyperlinkPage }) => {
+  await hyperlinkPage.goto();
 
-  await page.getByRole('link', { name: '200' }).click();
-  await expect(page.url()).toContain('status_codes/200');
-  await expect(page.locator(`#content > div.example > p`)).toContainText('200 status code');
-  await page.getByRole('link', { name: 'here' }).click();
+  await hyperlinkPage.clickOnElementWithText('200');
+  expect(await hyperlinkPage.getCurrentUrl()).toContain('status_codes/200');
+  expect (await hyperlinkPage.getContent()).toContain('200 status code');
+  await hyperlinkPage.clickOnElementWithText('here');
 
-  await page.getByRole('link', { name: '301' }).click();
-  await expect(page.url()).toContain('status_codes/301');  
-  await expect(page.locator(`#content > div.example > p`)).toContainText('301 status code');
-  await page.getByRole('link', { name: 'here' }).click();
-  
-  await page.getByRole('link', { name: '404' }).click();
-  await expect(page.url()).toContain('status_codes/404');
-  await expect(page.locator(`#content > div.example > p`)).toContainText('404 status code');
-  await page.getByRole('link', { name: 'here' }).click();
+  await hyperlinkPage.clickOnElementWithText('301');
+  expect(await hyperlinkPage.getCurrentUrl()).toContain('status_codes/301');
+  expect(await hyperlinkPage.getContent()).toContain('301 status code');
+  await hyperlinkPage.clickOnElementWithText('here');
 
-  await page.getByRole('link', { name: '500' }).click(); 
-  await expect(page.url()).toContain('status_codes/500'); 
-  await expect(page.locator(`#content > div.example > p`)).toContainText('500 status code');
-  await page.getByRole('link', { name: 'here' }).click();
+  await hyperlinkPage.clickOnElementWithText('404');
+  expect(await hyperlinkPage.getCurrentUrl()).toContain('status_codes/404');
+  expect(await hyperlinkPage.getContent()).toContain('404 status code');
+  await hyperlinkPage.clickOnElementWithText('here');
+
+  await hyperlinkPage.clickOnElementWithText('500');
+  expect(await hyperlinkPage.getCurrentUrl()).toContain('status_codes/500');
+  expect(await hyperlinkPage.getContent()).toContain('500 status code');
+  await hyperlinkPage.clickOnElementWithText('here');
 });

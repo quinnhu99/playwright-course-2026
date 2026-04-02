@@ -1,14 +1,18 @@
-import { test, expect } from '@playwright/test';
+// import { test, expect } from '@playwright/test';
+// import { LoginPage } from './pages/login.page';
+import { test, expect } from './fixrtures/the-internet.fixture';
 
-test('verify login functionality - use getByRole', async ({ page }) => {
-  await page.goto('https://the-internet.herokuapp.com/login');
-
-  await page.getByRole('textbox', { name: 'Username' }).fill('tomsmith');
-  await page.getByRole('textbox', { name: 'Password' }).fill('SuperSecretPassword!');
-  await page.getByRole('button', { name: 'Login' }).click();
+test('verify login functionality - use getByRole', async ({ loginPage }) => {
+  //const loginPage= new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login('tomsmith', 'SuperSecretPassword!');
   
-  await expect(page.getByText('You logged into a secure area')).toBeVisible();
-  await expect (page.locator('h4')).toContainText('Welcome to the Secure Area. When you are done click logout below.');
+ // await page.getByRole('textbox', { name: 'Username' }).fill('tomsmith');
+  // await page.getByRole('textbox', { name: 'Password' }).fill('SuperSecretPassword!');
+  // await page.getByRole('button', { name: 'Login' }).click();
+  
+  await expect(await loginPage.getSuccessMessage()).toBeVisible();
+  await expect (await loginPage.getWelcomeMessage()).toContainText('Welcome to the Secure Area. When you are done click logout below.');
 });
 
 test('verify login functionality - use CSS', async ({ page }) => {

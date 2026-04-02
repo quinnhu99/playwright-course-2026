@@ -1,14 +1,11 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixrtures/the-internet.fixture';
 
-test('verify checkbox functionality', async ({ page }) => {
-  await page.goto('https://the-internet.herokuapp.com/checkboxes');
+test('verify checkbox functionality', async ({ checkboxPage }) => {
+  await checkboxPage.goto();
 
-  await page.getByRole('checkbox').first().check();
-  await page.locator("#checkboxes input:nth-child(1)").check(); //css
-    await page.locator("//*[@id='checkboxes']/input[1]").check(); //xpath
-    await page.locator("//*[@id='checkboxes']/input[1]").isChecked(); //xpath
-  expect (await page.getByRole('checkbox').first()).toBeChecked();
+  await checkboxPage.checkCheckbox(0);
+  expect(await checkboxPage.isCheckboxChecked(0)).toBe(true);
 
-  await page.getByRole('checkbox').nth(1).check();
-  expect (await page.getByRole('checkbox').nth(1)).toBeChecked();  
+  await checkboxPage.checkCheckbox(1);
+  expect(await checkboxPage.isCheckboxChecked(1)).toBe(true);
 });

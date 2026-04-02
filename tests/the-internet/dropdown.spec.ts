@@ -1,12 +1,15 @@
-import {test, expect} from '@playwright/test';
+import {test, expect} from './fixrtures/the-internet.fixture';
 
-test ('able to select multiple options', async ({page}) => {
+test ('able to select multiple options', async ({dropdownPage}) => {
 
-  await page.goto('https://output.jsbin.com/osebed/2');
-  await page.locator('#fruits').selectOption(['banana', 'apple']);
-  await expect (page.locator('#fruits')).toHaveValues(['banana', 'apple']);
-  await expect (page.locator('#fruits > option:checked')).toHaveText (['Banana', 'Apple']);
-  await expect (page.locator('#fruits > option:not(:checked)')).toHaveText (['Orange', 'Grape']);
+  await dropdownPage.goto();
+  await dropdownPage.selectOptionByValue('1');
+  await expect(await dropdownPage.getSelectedOption()).toBe('Option 1');
+
+  await dropdownPage.selectOptionByValue('2');
+  await expect(await dropdownPage.getSelectedOption()).toBe('Option 2');
+  //await expect (dropdownPage.page.locator('#dropdown > option:checked')).toHaveText(['Banana']);
+  //await expect (dropdownPage.page.locator('#fruits > option:not(:checked)')).toHaveText (['Orange', 'Grape']);
 
   
 });
