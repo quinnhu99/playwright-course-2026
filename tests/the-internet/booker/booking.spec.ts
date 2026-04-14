@@ -27,7 +27,7 @@ const bookingDetailsSchema = z.object({
 }); 
 
 test('GET /booking with specific ID', async ({request}) => {
-  const response = await request.get('https://restful-booker.herokuapp.com/booking/3274');
+  const response = await request.get('https://restful-booker.herokuapp.com/booking/3');
   expect(response.status()).toBe(200);  
   const bookingsDetails = await response.json(); 
   //const {firstname, lastname} = bookingsDetails;
