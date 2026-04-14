@@ -27,13 +27,13 @@ const bookingDetailsSchema = z.object({
 }); 
 
 test('GET /booking with specific ID', async ({request}) => {
-  const response = await request.get('https://restful-booker.herokuapp.com/booking/101');
+  const response = await request.get('https://restful-booker.herokuapp.com/booking/1598');
   expect(response.status()).toBe(200);  
   const bookingsDetails = await response.json(); 
   const {firstname, lastname} = bookingsDetails;
   console.log(bookingsDetails);
-  expect(firstname).toBe('Josh');
-  expect(lastname).toBe('Allen');
+  expect(firstname).toBe('Alice');
+  expect(lastname).toBe('Smith');
   expect(() => bookingDetailsSchema.parse(bookingsDetails)).not.toThrow();
   
 });
@@ -58,6 +58,7 @@ test('POST /booking', async ({request}) => {
   });
   expect(response.status()).toBe(200);
   const createdBookingResponse = await response.json();
+  console.log(createdBookingResponse);
   expect(createdBookingResponse.bookingid).toBeDefined();
   expect(() => bookingDetailsSchema.parse(createdBookingResponse.booking)).not.toThrow();
   const {booking} = createdBookingResponse;
