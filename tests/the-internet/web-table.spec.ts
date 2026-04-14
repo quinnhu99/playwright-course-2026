@@ -1,6 +1,6 @@
 import { test, expect } from './fixrtures/the-internet.fixture';
 
-test ('verify fullname of maxdue person', async ({tablePage}) => {
+test ('verify fullname of maxdue person', async({tablePage}) => {
   await tablePage.goto();
 
   const numbers = await tablePage.getTableData();
@@ -8,7 +8,6 @@ test ('verify fullname of maxdue person', async ({tablePage}) => {
   const index = numbers.indexOf(maxValue);
 
   expect(await tablePage.getFullNameByIndex([index])).toContain('Doe Jason');
-
 });
 
 test ('verify fullname of mindue person(s)', async ({tablePage}) => {
